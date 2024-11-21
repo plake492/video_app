@@ -40,7 +40,12 @@ export async function POST(req: Request) {
 
     // Generate a JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email, name: user.name },
+      {
+        id: user._id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
       process.env.JWT_SECRET as string, // Ensure you have set this in your .env
       { expiresIn: "1h" }, // Token expires in 1 hour
     )
@@ -49,7 +54,8 @@ export async function POST(req: Request) {
     const res = NextResponse.json({
       message: "Login successful",
       user: {
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
@@ -58,7 +64,7 @@ export async function POST(req: Request) {
     res.cookies.set("token", token, {
       httpOnly: true, // Ensures that the cookie is not accessible via JavaScript
       secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-      sameSite: "Strict", // Protect against CSRF attacks
+      sameSite: "strict", // Protect against CSRF attacks
       maxAge: 60 * 60, // Set the cookie to expire in 1 hour (matches JWT expiration)
       path: "/", // Cookie will be available on the entire site
     })

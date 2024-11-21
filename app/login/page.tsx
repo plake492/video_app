@@ -1,10 +1,11 @@
 "use client"
 
 import React from "react"
+import { Input } from "../../components/FormComponents"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 interface User {
-  name: string
   email: string
   password: string
 }
@@ -13,12 +14,12 @@ export default function index() {
   const router = useRouter()
 
   const [user, setUser] = React.useState<User>({
-    name: "",
     email: "",
     password: "",
   })
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
@@ -28,10 +29,7 @@ export default function index() {
     })
 
     if (res.ok) {
-      const data = await res.json()
-      console.log("data ==>", data)
-
-      // router.push("/dashboard")
+      router.push("/dashboard")
     } else {
       const data = await res.json()
       console.error(data)
@@ -39,40 +37,35 @@ export default function index() {
   }
 
   return (
-    <div className="flex flex-col gap-4 py-8">
-      <div className="flex flex-col gap-1 items-start">
-        <label htmlFor="name">Name</label>
-        <input
-          className="border border-gray-500 bg-slate-800 px-2 py-1 rounded w-96"
-          id="name"
-          type="text"
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-6 py-8 bg-slate-800 w-[600px] p-8 rounded-xl mx-auto"
+    >
+      <legend className="text-3xl text-white font-bold">Login</legend>
+      <Input
+        label="Email"
+        value={user.email}
+        placeholder="E.g. john@google.com"
+        onChange={(e) => setUser({ ...user, email: e.target.value })}
+      />
+      <Input
+        label="Password"
+        value={user.password}
+        placeholder="************"
+        type="password"
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
+      />
+      <div className="mt-2 flex flex-col gap-2">
+        <Link href="/signup" className="text-blue-500 hover:underline">
+          Already have an account?
+        </Link>
+        <button
+          className="bg-blue-600 hover:bg-blue-500 transition-all text-white px-4 py-2 rounded w-full"
+          type="submit"
+        >
+          Login
+        </button>
       </div>
-      <div className="flex flex-col gap-1 items-start">
-        <label htmlFor="email">Email</label>
-        <input
-          className="border border-gray-500 bg-slate-800 px-2 py-1 rounded w-96"
-          id="email"
-          type="email"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-      </div>
-      <div className="flex flex-col gap-1 items-start">
-        <label htmlFor="password">Password</label>
-        <input
-          className="border border-gray-500 bg-slate-800 px-2 py-1 rounded w-96"
-          id="password"
-          type="password"
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-      </div>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded w-64"
-        onClick={handleSubmit}
-      >
-        Login
-      </button>
-    </div>
+    </form>
   )
 }

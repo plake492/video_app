@@ -1,18 +1,26 @@
-import mongoose, { Schema, Document } from "mongoose"
+import mongoose, { Schema, Document, CallbackError } from "mongoose"
 import bcrypt from "bcryptjs"
 
 // Define the User interface (TypeScript types)
 interface IUser extends Document {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
+  avatar: string
+  videos: mongoose.Schema.Types.ObjectId[]
   comparePassword: (candidatePassword: string) => Promise<boolean>
 }
 
 // Create the User schema
 const UserSchema: Schema = new Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
       type: String,
       required: true,
       trim: true,
@@ -29,6 +37,16 @@ const UserSchema: Schema = new Schema(
       required: true,
       minlength: 6, // Minimum length for password
     },
+    avatar: {
+      type: String,
+      default: "https://gravatar.com/avatar/?s=200&d=identicon", // Default avatar image
+    },
+    videos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+      },
+    ],
   },
   { timestamps: true }, // Automatically add createdAt and updatedAt fields
 )
@@ -45,8 +63,8 @@ UserSchema.pre<IUser>("save", async function (next) {
     const hashedPassword = await bcrypt.hash(this.password, salt)
     this.password = hashedPassword
     next()
-  } catch (error) {
-    return next(error) // Pass the error to the next middleware
+  } catch (error: unknown) {
+    return next(error as CallbackError) // Pass the error to the next middleware
   }
 })
 

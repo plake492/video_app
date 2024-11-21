@@ -1,11 +1,17 @@
 "use client"
-// app/dashboard/page.tsx
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
+import HeadshotUpload from "../../components/HeadshotUpload"
+
+interface User {
+  firstName: string
+  lastName: string
+  email: string
+}
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -27,16 +33,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div>Welcome to your dashboard, {user.name}!</div>
       <div>
-        <Image
-          src="/vix.JPG"
-          width={600}
-          height={600}
-          alt="Dashboard"
-          className="mx-auto rounded-full overflow-hidded"
-        />
+        Welcome to your dashboard, {user.firstName} {user.lastName}!
       </div>
+      <HeadshotUpload />
     </div>
   )
 }

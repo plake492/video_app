@@ -8,10 +8,10 @@ export async function POST(req: Request) {
     await connect()
 
     // Get the user data from the request body
-    const { name, email, password } = await req.json()
+    const { firstName, lastName, email, password } = await req.json()
 
     // Validate input data
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       return NextResponse.json(
         { error: "Please provide all required fields" },
         { status: 400 },
@@ -29,7 +29,8 @@ export async function POST(req: Request) {
 
     // Create a new user
     const newUser = new User({
-      name,
+      firstName,
+      lastName,
       email,
       password,
     })
@@ -38,7 +39,8 @@ export async function POST(req: Request) {
 
     // Respond with the created user data (excluding password)
     const userResponse = {
-      name: newUser.name,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
       email: newUser.email,
       createdAt: newUser.createdAt,
       updatedAt: newUser.updatedAt,

@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "cookie": "^1.0.1",
+    "framer-motion": "^11.11.17",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.1",
@@ -19,6 +21,7 @@
     "react-dom": "19.0.0-rc-66855b96-20241106"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",

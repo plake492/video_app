@@ -1,6 +1,15 @@
 // lib/mongoose.ts
 import mongoose from "mongoose"
 
+interface MongooseCache {
+  conn: typeof mongoose | null
+  promise: Promise<typeof mongoose> | null
+}
+
+declare global {
+  var mongoose: MongooseCache
+}
+
 const MONGODB_URI =
   process.env.MONGODB_URI ||
   "mongodb://localhost:27017/video-streaming-app-2024-db"
@@ -22,10 +31,7 @@ async function connect() {
 
   if (!cached.promise) {
     cached.promise = mongoose
-      .connect(MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(MONGODB_URI)
       .then((mongooseInstance) => mongooseInstance)
   }
 
