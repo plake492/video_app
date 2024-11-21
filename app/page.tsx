@@ -1,9 +1,10 @@
 "use client"
+
 import React from "react"
-import VideoPlayer from "../components/VideoPlayer"
-import Container from "../components/Container"
-import Heading from "../components/Heading"
-import Text from "../components/Text"
+import VideoPlayer from "@/components/VideoPlayer"
+import Container from "@/components/Container"
+import Heading from "@/components/Heading"
+import Text from "@/components/Text"
 
 export default function index() {
   return (

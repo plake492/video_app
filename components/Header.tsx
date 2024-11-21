@@ -8,7 +8,7 @@ export default function Header() {
       <nav>
         <ul className="flex items-center gap-2">
           <li className="mr-4">
-            <Link href="/">Home</Link>
+            <Link href="/videos">Videos</Link>
           </li>
           <li>
             <Link href="/login">Login</Link>
