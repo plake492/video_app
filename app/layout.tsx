@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
-import "./globals.css"
 import Header from "@/components/Header"
 import MainWrapper from "@/components/MainWrapper"
 import Footer from "@/components/Footer"
+import "./assets/scss/main.scss"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

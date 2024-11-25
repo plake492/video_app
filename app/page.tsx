@@ -5,24 +5,46 @@ import VideoPlayer from "@/components/VideoPlayer"
 import Container from "@/components/Container"
 import Heading from "@/components/Heading"
 import Text from "@/components/Text"
+import GridBg from "@/components/GridBg"
+
+import Hero from "@/components/home/Hero"
 
 export default function index() {
   return (
-    <Container>
-      <div className="flex flex-col gap-8 items-center px-2 max-w-[1200px] mx-auto mb-16">
-        <Heading variant="h2" as="h1">
-          Video Streaming App
-        </Heading>
-        <Text variant="lg">
-          Lorem ipsum dolor sit amet consectetur adipiscing elit congue dis,
-          purus litora posuere taciti ligula metus mattis consequat, porta
-          ridiculus faucibus aliquam elementum habitasse cum sed. Gravida
-          dictumst eu turpis porttitor tellus massa primis justo morbi, aenean
-          tempus natoque cursus eros nibh libero rhoncus mauris sollicitudin,
-          enim erat fringilla iaculis convallis lobortis hac fermentum.
-        </Text>
+    <>
+      <Hero />
+      <div className="bg-[#00000050] py-24">
+        <Container>
+          <div className="bg-purple-950 rounded-xl p-8 shadow-xl">
+            <Heading variant="h2" as="h2" className="mb-8">
+              Heading Two
+            </Heading>
+            <Text variant="lg">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit congue dis,
+              purus litora posuere taciti ligula metus Lorem ipsum dolor sit
+              amet consectetur adipiscing elit congue dis, purus litora posuere
+              taciti ligula metus Lorem ipsum dolor sit amet consectetur
+              adipiscing elit congue dis, purus litora posuere taciti ligula
+              metus
+            </Text>
+          </div>
+        </Container>
       </div>
-      <VideoPlayer videoSrc="/vid.mp4" />
-    </Container>
+      <GridBg>
+        <Container className="py-48 flex flex-col gap-4">
+          <Heading variant="h3" as="h2">
+            Heading Two
+          </Heading>
+          <Text variant="md">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit congue dis,
+            purus litora posuere taciti ligula metus
+          </Text>
+          <div className="py-12 flex gap-12">
+            <VideoPlayer videoSrc="/vid.mp4" />
+            <VideoPlayer videoSrc="/vid.mp4" />
+          </div>
+        </Container>
+      </GridBg>
+    </>
   )
 }

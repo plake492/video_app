@@ -1,24 +1,27 @@
 import React from "react"
 
 const headings = {
-  h1: "text-8xl font-bold leading-normal text-center font-mono",
-  h2: "text-6xl font-bold leading-normal text-center font-mono",
-  h3: "text-4xl font-bold leading-normal text-center font-mono",
-  h4: "text-2xl font-bold leading-normal text-center font-mono",
-  h5: "text-xl font-bold leading-normal text-center font-mono",
-  h6: "text-lg font-bold leading-normal text-center font-mono",
+  h1: "md:text-8xl text-6xlfont-bold leading-normal font-mono",
+  h2: "md:text-6xl text-4xl font-bold leading-normal font-mono",
+  h3: "md:text-4xl text-2xl font-bold leading-normal font-mono",
+  h4: "md:text-2xl text-xl font-bold leading-normal font-mono",
+  h5: "md:text-xl text-lg font-bold leading-normal font-mono",
+  h6: "md:text-lg text-md font-bold leading-normal font-mono",
 }
 
 export default function Heading({
   children,
   as,
   variant,
+  className = "",
 }: {
   children: React.ReactNode
   as?: React.ElementType
   variant: keyof typeof headings
+  className?: string
 }) {
   const Component: React.ElementType = as ?? "div"
+  const classes = `${headings[variant]} ${className}`.trim()
 
-  return <Component className={headings[variant]}>{children}</Component>
+  return <Component className={classes}>{children}</Component>
 }
