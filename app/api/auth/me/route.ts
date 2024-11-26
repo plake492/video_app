@@ -1,6 +1,6 @@
 // app/api/auth/me/route.ts
 import { NextResponse } from "next/server"
-import jwt from "jsonwebtoken"
+import { jwtVerify } from "jose"
 import { cookies } from "next/headers" // Import cookies() from next/headers
 
 export async function GET() {
@@ -12,8 +12,9 @@ export async function GET() {
   }
 
   try {
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET as string)
-    return NextResponse.json({ user: decoded })
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET) // Ensure JWT_SECRET is set
+    const { payload } = await jwtVerify(token.value, secret)
+    return NextResponse.json(payload)
   } catch (error) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }

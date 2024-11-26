@@ -1,8 +1,10 @@
 "use-client"
 
 import React, { useState } from "react"
+import { useUserStore } from "@/store"
 
 export default function HeadshotUpload() {
+  const { user } = useUserStore()
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
 
@@ -10,6 +12,8 @@ export default function HeadshotUpload() {
     const file = event.target.files?.[0]
     if (file) {
       setSelectedFile(file)
+      console.log("file ==>", file)
+
       const reader = new FileReader()
       reader.onloadend = () => {
         setPreview(reader.result as string)
@@ -18,42 +22,31 @@ export default function HeadshotUpload() {
     }
   }
 
-  // const handleUpload = () => {
-  //   if (selectedFile) {
-  //     const reader = new FileReader()
-  //     reader.onloadend = () => {
-  //       const arrayBuffer = reader.result as ArrayBuffer
-  //       const buffer = Buffer.from(arrayBuffer)
-  //       uploadFile({
-  //         fileName: selectedFile.name,
-  //         fileContent: buffer,
-  //       })
-  //     }
-  //     reader.readAsArrayBuffer(selectedFile)
-  //     // Handle the file upload logic here
-  //     console.log("Uploading:", selectedFile)
-  //   }
-  // }
-
   const handleUpload = async () => {
+    if (!user) return
     if (!selectedFile) return
 
-    const fileContent = await selectedFile.arrayBuffer()
-    const base64FileContent = Buffer.from(fileContent).toString("base64")
+    // Create a FormData object
+    const formData = new FormData()
+    formData.append("id", user.id)
+    formData.append("file", selectedFile) // Append the raw file
+    console.log("user ==>", user)
 
-    const response = await fetch("/api/avatar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fileName: selectedFile.name,
-        fileContent: base64FileContent,
-      }),
-    })
+    try {
+      const response = await fetch("/api/avatar", {
+        method: "POST",
+        body: formData, // Send the form data
+      })
 
-    const data = await response.json()
-    console.log("File uploaded to:", data.location)
+      if (!response.ok) {
+        throw new Error("Failed to upload file")
+      }
+
+      const data = await response.json()
+      console.log("File uploaded to:", data.location)
+    } catch (error) {
+      console.error("Upload failed:", error)
+    }
   }
 
   return (

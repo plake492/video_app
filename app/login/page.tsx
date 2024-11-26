@@ -4,6 +4,7 @@ import React from "react"
 import { Input } from "../../components/FormComponents"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { useUserStore } from "@/store/index"
 
 interface User {
   email: string
@@ -11,6 +12,7 @@ interface User {
 }
 
 export default function index() {
+  const { setUser: setStoreUser } = useUserStore()
   const router = useRouter()
 
   const [user, setUser] = React.useState<User>({
@@ -29,6 +31,8 @@ export default function index() {
     })
 
     if (res.ok) {
+      const data = await res.json()
+      setStoreUser(data)
       router.push("/dashboard")
     } else {
       const data = await res.json()

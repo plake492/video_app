@@ -48,12 +48,14 @@ export default function index() {
       <div className="flex gap-4">
         <Input
           label="First Name"
+          type="text"
           value={user.firstName}
           placeholder="E.g. John"
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
         />
         <Input
           label="Last Name"
+          type="text"
           value={user.lastName}
           placeholder="E.g. Doe"
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
@@ -62,6 +64,7 @@ export default function index() {
       <Input
         label="Email"
         value={user.email}
+        type="email"
         placeholder="E.g. john@google.com"
         onChange={(e) => setUser({ ...user, email: e.target.value })}
       />

@@ -1,7 +1,7 @@
 // app/api/auth/login/route.ts
 import { NextResponse } from "next/server"
-import connect from "../../../../lib/mongoose"
-import User from "../../../../models/User"
+import connect from "@/lib/mongoose"
+import User from "@/models/User"
 import jwt from "jsonwebtoken"
 
 export async function POST(req: Request) {
@@ -45,6 +45,7 @@ export async function POST(req: Request) {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        avatar: user.avatar,
       },
       process.env.JWT_SECRET as string, // Ensure you have set this in your .env
       { expiresIn: "1h" }, // Token expires in 1 hour
@@ -52,14 +53,13 @@ export async function POST(req: Request) {
 
     // Set the token in an HTTP-only cookie
     const res = NextResponse.json({
-      message: "Login successful",
-      user: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      avatar: user.avatar,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     })
     res.cookies.set("token", token, {
       httpOnly: true, // Ensures that the cookie is not accessible via JavaScript
