@@ -1,5 +1,4 @@
 // components/VideoList.tsx
-"use client"
 
 import React from "react"
 import Video from "@/models/Video"

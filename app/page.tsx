@@ -1,10 +1,9 @@
 import React from "react"
-import VideoPlayer from "@/components/VideoPlayer"
 import Container from "@/components/Container"
 import Heading from "@/components/Heading"
 import Text from "@/components/Text"
-import GridBg from "@/components/GridBg"
 import Hero from "@/components/home/Hero"
+import TopVideos from "@/components/home/TopVideos"
 
 export default function index() {
   return (
@@ -27,21 +26,8 @@ export default function index() {
           </div>
         </Container>
       </div>
-      <GridBg>
-        <Container className="py-48 flex flex-col gap-4">
-          <Heading variant="h3" as="h2">
-            Heading Two
-          </Heading>
-          <Text variant="md">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit congue dis,
-            purus litora posuere taciti ligula metus
-          </Text>
-          <div className="py-12 flex gap-12">
-            <VideoPlayer videoSrc="/vid.mp4" />
-            <VideoPlayer videoSrc="/vid.mp4" />
-          </div>
-        </Container>
-      </GridBg>
+
+      <TopVideos />
     </>
   )
 }

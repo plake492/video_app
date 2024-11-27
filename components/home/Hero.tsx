@@ -5,6 +5,7 @@ import Heading from "@/components/Heading"
 import Text from "@/components/Text"
 import Image from "next/image"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { StaggeredAnimation } from "@/components/StaggeredAnimation"
 import useResizeObserver from "@/hooks/useResiveObserver"
 
@@ -43,9 +44,12 @@ export default function Hero() {
               fermentum.
             </Text>
 
-            <button className="px-2 py-2 bg-purple-700 hover:bg-purple-600 transition-all rounded-md w-[min(200px,_66%)] text-lg">
+            <Link
+              href="/videos"
+              className="px-2 py-2 bg-purple-700 hover:bg-purple-600 transition-all rounded-md w-[min(200px,_66%)] text-lg"
+            >
               Start Here
-            </button>
+            </Link>
           </StaggeredAnimation>
           <Image
             alt="tree"

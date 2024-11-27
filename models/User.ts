@@ -75,6 +75,10 @@ UserSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.password)
 }
 
+UserSchema.virtual("fullName").get(function () {
+  return this.firstName + " " + this.lastName
+})
+
 // Create and export the model
 const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema)
 

@@ -1,5 +1,5 @@
 // lib/videos.ts
-import Video from "@/models/Video"
+import { Video } from "@/models" // Import from the central models file
 import connect from "@/lib/mongoose"
 
 export async function getVideos(userId?: string) {

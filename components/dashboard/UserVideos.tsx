@@ -7,7 +7,7 @@ export default function UserVideos({ videos }: any) {
       <Heading variant="h4">My Videos</Heading>
       <div className="grid grid-cols-4 gap-4">
         {videos.map((video: any) => (
-          <div key={video.id}>
+          <div key={video._id}>
             <video src={video.url} />
             <h2>{video.title}</h2>
             <p>{video.description}</p>
