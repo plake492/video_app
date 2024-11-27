@@ -26,6 +26,10 @@ const VideoSchema: Schema = new Schema(
       required: true,
       trim: true,
     },
+    views: {
+      type: Number,
+      default: 0,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -34,6 +38,10 @@ const VideoSchema: Schema = new Schema(
   },
   { timestamps: true }, // Automatically add createdAt and updatedAt fields
 )
+
+VideoSchema.statics.incrementViews = async function (videoId: string) {
+  await this.findByIdAndUpdate(videoId, { $inc: { views: 1 } })
+}
 
 // Create and export the model
 const Video =

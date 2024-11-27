@@ -72,21 +72,3 @@ export async function POST(req: Request) {
     )
   }
 }
-
-// GET
-export async function GET(req: Request) {
-  const { fileName }: UploadParams = await req.json()
-
-  const params: AWS.S3.GetObjectRequest = {
-    Bucket: process.env.AWS_BUCKET_NAME as string,
-    Key: fileName as string,
-  }
-
-  try {
-    const data = await s3.getObject(params).promise()
-    NextResponse.json(data.Body, { status: 200 }) // Return file content
-  } catch (error) {
-    console.error("Error fetching file:", error)
-    NextResponse.json({ error: "Error fetching file" }, { status: 500 })
-  }
-}

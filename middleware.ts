@@ -1,8 +1,8 @@
 // middleware.ts
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers" // Use cookies from next/headers
-import { authGuard } from "@/app/middleware/authGaurd"
-import { loginSignupGuard } from "@/app/middleware/loginSignupGaurd"
+import { authGuard } from "@/middleware/authGaurd"
+import { loginSignupGuard } from "@/middleware/loginSignupGaurd"
 
 export async function middleware(req: Request) {
   const cookieStore = await cookies() // Retrieve cookies from the incoming request

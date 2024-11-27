@@ -1,12 +1,9 @@
-"use client"
-
 import React from "react"
 import VideoPlayer from "@/components/VideoPlayer"
 import Container from "@/components/Container"
 import Heading from "@/components/Heading"
 import Text from "@/components/Text"
 import GridBg from "@/components/GridBg"
-
 import Hero from "@/components/home/Hero"
 
 export default function index() {

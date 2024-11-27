@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import Header from "@/components/Header"
-import MainWrapper from "@/components/MainWrapper"
 import Footer from "@/components/Footer"
 import "./assets/scss/main.scss"
 
@@ -32,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh flex flex-col justify-center`}
       >
         <Header />
-        <MainWrapper>{children}</MainWrapper>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

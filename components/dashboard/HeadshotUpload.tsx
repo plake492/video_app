@@ -12,7 +12,6 @@ export default function HeadshotUpload() {
     const file = event.target.files?.[0]
     if (file) {
       setSelectedFile(file)
-      console.log("file ==>", file)
 
       const reader = new FileReader()
       reader.onloadend = () => {

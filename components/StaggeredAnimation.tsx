@@ -10,6 +10,7 @@ interface StaggeredAnimationProps {
   children: React.ReactNode[]
   childVariants?: { [key: number]: any } // Map of child-specific variants
   stagger?: number // Stagger delay
+  className?: string
 }
 
 // Wrapper for individual child animations
@@ -33,6 +34,7 @@ export const StaggeredAnimation = ({
   children,
   childVariants = {},
   stagger,
+  className,
 }: StaggeredAnimationProps) => {
   // Variants for the parent container
   const containerVariants = {
@@ -45,9 +47,11 @@ export const StaggeredAnimation = ({
     },
   }
 
+  const classes = `animation-container ${className ?? ""}`.trim()
+
   return (
     <motion.div
-      className="animation-container"
+      className={classes}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
